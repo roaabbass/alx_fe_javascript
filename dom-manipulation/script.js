@@ -5,8 +5,8 @@ const quotes = [
     { text: "Get busy living or get busy dying.", category: "Motivation" }
   ];
   
-  // Function to display a random quote
-  function displayRandomQuote() {
+  // Function to show a random quote
+  function showRandomQuote() {
     const quoteDisplay = document.getElementById('quoteDisplay');
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const randomQuote = quotes[randomIndex];
@@ -28,8 +28,8 @@ const quotes = [
   }
   
   // Event listener for showing a new quote
-  document.getElementById('newQuote').addEventListener('click', displayRandomQuote);
+  document.getElementById('newQuote').addEventListener('click', showRandomQuote);
   
   // Initial quote display
-  displayRandomQuote();
+  showRandomQuote();
   
