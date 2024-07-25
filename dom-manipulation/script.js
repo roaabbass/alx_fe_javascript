@@ -1,4 +1,4 @@
-// quotes from local storage or default quotes
+// Initialize quotes from local storage or default quotes
 const quotes = JSON.parse(localStorage.getItem('quotes')) || [
     { text: "Life is what happens when you're busy making other plans.", category: "Life" },
     { text: "The purpose of our lives is to be happy.", category: "Purpose" },
@@ -40,7 +40,7 @@ const quotes = JSON.parse(localStorage.getItem('quotes')) || [
     formContainer.innerHTML = `
       <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
       <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-      <button id="addQuoteButton">Add Quote</button>
+      <button onclick="addQuote()">Add Quote</button>
       <button id="exportJsonButton">Export Quotes as JSON</button>
       <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
     `;
@@ -49,7 +49,6 @@ const quotes = JSON.parse(localStorage.getItem('quotes')) || [
     document.body.appendChild(formContainer);
   
     // Add event listeners to the new buttons
-    document.getElementById('addQuoteButton').addEventListener('click', addQuote);
     document.getElementById('exportJsonButton').addEventListener('click', exportToJson);
   }
   
