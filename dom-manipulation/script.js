@@ -137,6 +137,7 @@ async function syncQuotes() {
     const response = await fetch(SERVER_URL);
     const serverQuotes = await response.json();
     handleServerData(serverQuotes);
+    notifyUser('Quotes synced with server!');
   } catch (error) {
     console.error('Error syncing quotes:', error);
   }
