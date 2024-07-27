@@ -132,9 +132,19 @@ async function fetchQuotesFromServer() {
   }
 }
 
+async function syncQuotes() {
+  try {
+    const response = await fetch(SERVER_URL);
+    const serverQuotes = await response.json();
+    handleServerData(serverQuotes);
+  } catch (error) {
+    console.error('Error syncing quotes:', error);
+  }
+}
+
 function handleServerData(serverQuotes) {
   const localQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
-
+  
   const conflicts = serverQuotes.filter(serverQuote =>
     localQuotes.some(localQuote =>
       localQuote.text === serverQuote.title && localQuote.category !== serverQuote.category
@@ -185,4 +195,4 @@ const savedCategory = localStorage.getItem('selectedCategory') || 'all';
 document.getElementById('categoryFilter').value = savedCategory;
 filterQuotes();
 
-setInterval(fetchQuotesFromServer, 60000);
+setInterval(syncQuotes, 60000); // Sync quotes every minute
