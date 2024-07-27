@@ -17,13 +17,27 @@ function showRandomQuote() {
   quoteDisplay.innerHTML = `"${randomQuote.text}" - ${randomQuote.category}`;
 }
 
-function addQuote() {
+async function addQuote() {
   const quoteText = document.getElementById('newQuoteText').value;
   const quoteCategory = document.getElementById('newQuoteCategory').value;
 
   if (quoteText && quoteCategory) {
-    quotes.push({ text: quoteText, category: quoteCategory });
+    const newQuote = { text: quoteText, category: quoteCategory };
+    quotes.push(newQuote);
     saveQuotes();
+
+    try {
+      await fetch(SERVER_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newQuote)
+      });
+    } catch (error) {
+      console.error('Error adding quote to server:', error);
+    }
+
     document.getElementById('newQuoteText').value = '';
     document.getElementById('newQuoteCategory').value = '';
     populateCategories();
